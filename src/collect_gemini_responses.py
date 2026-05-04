@@ -15,9 +15,9 @@ MODEL_ID = "gemma-3-27b-it"  # change this to 'gemini-2.5-pro' if needed
 # MODEL_ID = "gemini-2.0-flash"
 
 # 2. Setup paths
-JPG_DIR = "../jpgs_traps_anatomy"
-OUTPUT_DIR = "../results_traps_anatomy"
-MAPPING_FILE = "../ground_truth_mapping_traps_anatomy.json"
+JPG_DIR = "../15_Apr/vignettes_infectous/jpg"
+OUTPUT_DIR = "../15_Apr/vignettes_infectous/results"
+MAPPING_FILE = "../15_Apr/vignettes_infectous/ground_truth_mapping.json"
 
 N_COMPLETIONS = 50
 
