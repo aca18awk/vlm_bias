@@ -4,8 +4,8 @@ import os
 import pandas as pd
 from scipy.stats import chi2_contingency, pointbiserialr
 
-EVAL_DIR = "../evaluations_traps_anatomy"
-MAPPING_FILE = "../ground_truth_mapping_traps_anatomy.json"
+EVAL_DIR = "../15_Apr/vignettes_nature_paper/evaluations_qwen25_cfd
+MAPPING_FILE = "../15_Apr/vignettes_nature_paper/ground_truth_mapping.json"
 
 # 1. Load the reverse mapping (Encoded Name -> Human Name)
 with open(MAPPING_FILE, "r") as f:

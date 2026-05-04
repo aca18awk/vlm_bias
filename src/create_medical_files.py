@@ -7,17 +7,18 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches
 
 # 1. Setup paths and data
-JSON_FILE = "../vignettes_traps_anatomy.json"
-OUTPUT_DIR = "../generated_word_docs_traps_anatomy"
-MAPPING_FILE = "../ground_truth_mapping_traps_anatomy.json"
+JSON_FILE = "../15_Apr/vignettes_nature_paper/vignettes_nature_paper_20_Apr.json"
+OUTPUT_DIR = "../15_Apr/vignettes_nature_paper/docs_control"
+MAPPING_FILE = "../15_Apr/vignettes_nature_paper/ground_truth_mapping_control.json"
 
 # Added "no_photo" to the list of configurations
 IMAGE_FILES = [
-    "black_man.png",
-    "black_woman.png",
-    "white_man.png",
-    "white_woman.png",
-    "no_photo",
+    # "black_man.png",
+    # "black_woman.png",
+    # "white_man.png",
+    # "white_woman.png",
+    "grey_rect.png"
+    # "no_photo",
 ]
 
 # Create output directory if it doesn't exist

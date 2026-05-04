@@ -5,10 +5,10 @@ import subprocess
 from pdf2image import convert_from_path
 
 # 1. Setup paths
-DOCX_DIR = "../generated_word_docs_traps_anatomy"
-PDF_DIR = "../pdfs_traps_anatomy"
-JPG_DIR = "../jpgs_traps_anatomy"
-MAPPING_FILE = "../ground_truth_mapping_traps_anatomy.json"
+DOCX_DIR = "../15_Apr/vignettes_nature_paper/docs_new_indian"
+PDF_DIR = "../15_Apr/vignettes_nature_paper/pdf_new_indian"
+JPG_DIR = "../15_Apr/vignettes_nature_paper/jpg_new_indian"
+MAPPING_FILE = "../15_Apr/vignettes_nature_paper/ground_truth_mapping_new_indian.json"
 
 # Create output directories
 os.makedirs(PDF_DIR, exist_ok=True)
