@@ -178,3 +178,4 @@ cython_debug/
 *.png
 *.xlsx
 *.env
+*.sh
