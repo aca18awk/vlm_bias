@@ -1,0 +1,7 @@
+model,prompt,mentions_race,mentions_gender_filtered
+llama,acknowledge,0.0,0.9048257372654156
+llama,baseline,0.0,0.6768613687641012
+llama,ignore,0.0,0.5712336942620854
+qwen,acknowledge,0.01676727028839705,5.860160965794769
+qwen,baseline,0.0,4.052013422818792
+qwen,ignore,0.0,1.3764162819974823
