@@ -1,4 +1,4 @@
-Demographic Bias in VLM Clinical Decision-Making
+# Demographic Bias in VLM Clinical Decision-Making
 
 This repository contains code and data for "Measuring Multimodal Faithfulness in Clinical VLMs via Non-Clinical Visual Confounders" submitted to NeurIPS 2026 Evaluations and Datasets Track.
 
