@@ -1,7 +1,0 @@
-grp,var1,var2,vcov,sdcor,model,prompt
-vignette_id,(Intercept),,5.936340364146633,2.4364606223262943,qwen,baseline
-vignette_id,(Intercept),,8.566538169308588,2.9268649045196105,qwen,ignore
-vignette_id,(Intercept),,6.953089432070302,2.6368711443812156,qwen,acknowledge
-vignette_id,(Intercept),,0.6039095992607802,0.7771162070506445,llama,baseline
-vignette_id,(Intercept),,0.445195838626095,0.6672299743162735,llama,ignore
-vignette_id,(Intercept),,0.5893610367109499,0.7676985324402736,llama,acknowledge
