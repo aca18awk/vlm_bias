@@ -76,7 +76,7 @@ docs/_build/
 target/
 
 # Jupyter Notebook
-.ipynb_checkpoints
+# .ipynb_checkpoints
 
 # IPython
 profile_default/
@@ -174,8 +174,11 @@ cython_debug/
 *.pdf
 *.jpg
 *.docx
-*.json
 *.png
 *.xlsx
 *.env
 *.sh
+
+
+15_Apr/
+20_Feb/

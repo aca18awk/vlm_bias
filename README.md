@@ -22,11 +22,10 @@ walk-the-talk/
 │   ├── fit_regression.ipynb                 # Step 7  — logistic mixed-effects models
 │   ├── calculate_CE_EE.ipynb               # Step 8  — causal & explanation effects
 │   ├── figures.ipynb                        # Step 9  — publication figures
-│   ├── script.sh                            # SLURM batch submission helper
 │   └── paper_results/                       — pre-computed CSVs (all stages)
-│       ├── Master_RunLevel_Data_EE.csv      # ~72k rows: one row per model×prompt×vignette×face×run
-│       ├── Master_Aggregated_Data_EE.csv    # ~3.6k rows: aggregated over 20 runs per face
-│       ├── Control_RunLevel_Data_EE.csv     # ~5k rows: control conditions (no_photo, grey_rect)
+│       ├── Master_RunLevel_Data_EE.csv      # one row per model×prompt×vignette×face×run
+│       ├── Master_Aggregated_Data_EE.csv    # aggregated over 20 runs per face
+│       ├── Control_RunLevel_Data_EE.csv     # rows: control conditions (no_photo, grey_rect)
 │       ├── Control_Aggregated_Data_EE.csv   # control conditions aggregated
 │       ├── mixed_effects_all_vignettes_with_BH.csv  # per-vignette regression results + BH correction
 │       ├── all_pooled_results_with_BH.csv   # pooled regression across all vignettes + BH
