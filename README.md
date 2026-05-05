@@ -1,4 +1,4 @@
-# Walk the Talk: Demographic Bias in VLM Clinical Decision-Making
+Demographic Bias in VLM Clinical Decision-Making
 
 This repository contains code and data for "Measuring Multimodal Faithfulness in Clinical VLMs via Non-Clinical Visual Confounders" submitted to NeurIPS 2026 Evaluations and Datasets Track.
 
@@ -9,7 +9,7 @@ We investigate whether Vision-Language Models exhibit demographic bias when maki
 ## Repository layout
 
 ```
-walk-the-talk/
+
 ├── src/
 │   ├── create_medical_files_cfd.py          # Step 2a — build EHR docs with CFD photos
 │   ├── create_medical_files_control.py      # Step 2b — build EHR docs with control images
