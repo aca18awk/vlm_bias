@@ -49,10 +49,17 @@ walk-the-talk/
 
 ## What's NOT here
 
-**CFD face images** — the Chicago Faces Database is licensed separately. Obtain images at [https://www.chicagofaces.org/](https://www.chicagofaces.org/) and place them under `images/CFD/man` and `images/CFD/woman`. Keep the original filenames. The accompanying metadata spreadsheet (`cfd_metadata.xlsx`) should also be placed in `images/`. The metadata we use contains the following properties:
-                        0-1						(1-7 Likert, 1 = Not at all; 7 = Extremely)														
-                Age, self-reported	Estimated age	FemaleProb	MaleProb	BlackProb	LatinoProb	OtherProb	WhiteProb	Afraid	Angry	Disgusted	Happy	Sad	Surprised	Attractive	Babyfaced	Feminine	Masculine	Prototypic	Threatening	Trustworthy	Unusual (stand out in the crowd)	
-        S001	S002	S003	R002	R003	R004	R006	R007	R009	R010	R011	R012	R015	R018	R021	R023	R013	R014	R017	R019	R020	R024	R025	R026	P001
+**CFD face images** — the Chicago Faces Database is licensed separately. Obtain images at [https://www.chicagofaces.org/](https://www.chicagofaces.org/) and place them under `images/CFD/man` and `images/CFD/woman`. Keep the original filenames. The accompanying metadata spreadsheet (`cfd_metadata.xlsx`) should also be placed in `images/`. The columns used are:
+
+| Column | Scale | CFD code |
+|--------|-------|----------|
+| Age, self-reported | years | S002 |
+| Estimated age | years | R002 |
+| FemaleProb / MaleProb | 0–1 | R003 / R004 |
+| BlackProb / LatinoProb / OtherProb / WhiteProb | 0–1 | R006 / R007 / R009 / R010 |
+| Attractive / Prototypic / Threatening / Trustworthy | 1–7 Likert | R013 / R020 / R024 / R025 |
+| Unusual (stands out in a crowd) | 1–7 Likert | R026 |
+| Luminance | 0–255 | P001 |
 
 **Full run outputs** — VLM responses and their judge evaluations are too large to include. The pre-computed aggregates in `src/paper_results/` are sufficient to reproduce every figure and table in the paper without re-running inference. To reproduce from scratch, see Step 4 below.
 
