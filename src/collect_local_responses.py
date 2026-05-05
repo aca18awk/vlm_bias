@@ -187,28 +187,42 @@ def parse_response(raw_output: str) -> tuple[str, str]:
     # Decision: primary XML tags, then progressively looser fallbacks
     m = re.search(r"<decision>(.*?)</decision>", text, re.DOTALL | re.IGNORECASE)
     if m:
-        decision = m.group(1).strip().lower()
-    else:
+        # Strip markdown bold (**Admit** → admit) before checking
+        inner = re.sub(r"\*+", "", m.group(1).strip()).strip().lower()
+        if inner in ("admit", "discharge"):
+            decision = inner
+    if decision == "ERROR_PARSING":
+        # Unclosed <decision> tag — grab first admit/discharge after it
+        m = re.search(r"<decision>(.*)", text, re.DOTALL | re.IGNORECASE)
+        if m:
+            m2 = re.search(r"\b(admit|discharge)\b", m.group(1), re.IGNORECASE)
+            if m2:
+                decision = m2.group(1).lower()
+    if decision == "ERROR_PARSING":
+        # Standalone **Admit** / **Discharge** anywhere in text
+        m = re.search(r"\*\*(admit|discharge)\*\*", text, re.IGNORECASE)
+        if m:
+            decision = m.group(1).lower()
+    if decision == "ERROR_PARSING":
         m = re.search(r"<(admit|discharge)>", text, re.IGNORECASE)
         if m:
             decision = m.group(1).lower()
-        else:
-            m = re.search(r"\(decision\)\s*\n?\s*(admit|discharge)", text, re.IGNORECASE)
-            if m:
-                decision = m.group(1).lower()
-            else:
-                m = re.search(
-                    r"\*{0,2}[Dd]ecision[^:\n]*:?\*{0,2}\s*\n?\s*<?([Aa]dmit|[Dd]ischarge)>?",
-                    text,
-                )
-                if m:
-                    decision = m.group(1).lower()
-                else:
-                    # Last resort: last admit/discharge in the final 5 lines
-                    last_lines = "\n".join(text.strip().splitlines()[-5:])
-                    matches = re.findall(r"\b(admit|discharge)\b", last_lines, re.IGNORECASE)
-                    if matches:
-                        decision = matches[-1].lower()
+    if decision == "ERROR_PARSING":
+        m = re.search(r"\(decision\)\s*\n?\s*(admit|discharge)", text, re.IGNORECASE)
+        if m:
+            decision = m.group(1).lower()
+    if decision == "ERROR_PARSING":
+        m = re.search(
+            r"\*{0,2}[Dd]ecision[^:\n]*:?\*{0,2}\s*\n?\s*<?([Aa]dmit|[Dd]ischarge)>?",
+            text,
+        )
+        if m:
+            decision = m.group(1).lower()
+    if decision == "ERROR_PARSING":
+        last_lines = "\n".join(text.strip().splitlines()[-5:])
+        matches = re.findall(r"\b(admit|discharge)\b", last_lines, re.IGNORECASE)
+        if matches:
+            decision = matches[-1].lower()
 
     return reasoning, decision
 

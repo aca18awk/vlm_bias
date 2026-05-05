@@ -152,3 +152,21 @@ print("\nHead:")
 print(df_aggregated.head().to_string())
 print("\nCell sizes (model × prompt × race × gender):")
 print(df_aggregated.groupby(['model', 'prompt', 'race', 'gender']).size().to_string())
+
+print("\n── Sanity checks ──")
+for model in ['qwen', 'llama']:
+    for vid in [3, 11]:
+        rate = df_aggregated[(df_aggregated.model==model) & (df_aggregated.vignette_id==vid) &
+                             (df_aggregated.prompt=='baseline')]['admit_rate'].mean()
+        print(f"{model} V{vid:02d}: {rate:.2f}")
+
+photo_rows = df_aggregated[df_aggregated.photo_id != 'no_photo']
+print(photo_rows.groupby('photo_id').size().describe())
+print(photo_rows.groupby(['race', 'gender'])['photo_id'].nunique())
+
+incomplete = df_aggregated[df_aggregated['n_total'] < 20]
+print(f"Cells with < 20 runs: {len(incomplete)}" + (" ← WARNING" if len(incomplete) else " ✓"))
+if len(incomplete):
+    print(incomplete[['model', 'prompt', 'photo_id', 'vignette_id', 'n_total']].to_string())
+
+print(f"\nn_total: min={df_aggregated['n_total'].min()}  max={df_aggregated['n_total'].max()}  mean={df_aggregated['n_total'].mean():.1f}")
