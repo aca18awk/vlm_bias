@@ -41,7 +41,7 @@ We investigate whether Vision-Language Models exhibit demographic bias when maki
 │   └── vignettes.json                       # 12 clinical vignette texts (gender-neutral)
 ├── example_run/                             # one sample of raw outputs and judge evaluations
 │   └── [vignette 6, baseline prompt, one face]
-├── requirements.txt
+├── environment.yml
 └── README.md
 ```
 
@@ -94,10 +94,11 @@ The exact image names used in this experiment are provided in the `src/paper_res
 ## Setup
 
 ```bash
-pip install -r requirements.txt
+conda env create -f environment.yml
+conda activate vlm_bias
 ```
 
-The regression notebook (`fit_regression.ipynb`) additionally requires **R** with the `lme4` package, accessed from Python via `rpy2`.
+We use Conda for environment management to ensure stable integration between Python and the R-based statistical backend (lme4) via rpy2.
 
 Copy `secrets.env.example` to `secrets.env` (gitignored) and fill in your tokens:
 
