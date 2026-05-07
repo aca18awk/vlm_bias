@@ -61,6 +61,8 @@ We investigate whether Vision-Language Models exhibit demographic bias when maki
 | Unusual (stands out in a crowd) | 1–7 Likert | R026 |
 | Luminance | 0–255 | P001 |
 
+The exact image names used in this experiment are provided in the `src/paper_results/images_list.json`.
+
 **Full run outputs** — VLM responses and their judge evaluations are too large to include. The pre-computed aggregates in `src/paper_results/` are sufficient to reproduce every figure and table in the paper without re-running inference. To reproduce from scratch, see Step 4 below.
 
 ---
