@@ -1,4 +1,0 @@
-anthropic==0.52.1
-ipython==8.12.3
-openai==0.28.0
-pyrate_limiter==2.8.1
