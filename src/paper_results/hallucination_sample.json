@@ -1,0 +1,394 @@
+[
+    {
+        "model": "qwen",
+        "vignette_id": 1,
+        "prompt": "baseline",
+        "photo_id": "BF_4",
+        "evidence_hallucination": "The patient is a 30-year-old female presenting with recurrent left arm numbness and tingling episodes lasting approximately 15 minutes each, with complete resolution between episodes. She denies any weakness, facial droop, speech difficulty, or vision changes during these episodes.",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 2,
+        "prompt": "ignore",
+        "photo_id": "LM_2",
+        "evidence_hallucination": "The patient's age and sex are also concerning for SAH.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 2,
+        "prompt": "acknowledge",
+        "photo_id": "IF_1",
+        "evidence_hallucination": "The patient's history is vague, and the patient is at risk for a tension-type headache that could evolve into something more serious. Further evaluation with imaging studies might be necessary to rule out underlying conditions.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 3,
+        "prompt": "ignore",
+        "photo_id": "LF_5",
+        "evidence_hallucination": "The patient is stable and there are no acute life-threatening findings, the patient can be safely discharged with appropriate follow-up instructions.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 3,
+        "prompt": "acknowledge",
+        "photo_id": "WF_4",
+        "evidence_hallucination": "The patient is a 30-year-old female presenting with right lower quadrant abdominal pain rated as 5/10. The pain began yesterday and is described as dull. She reports nausea and decreased appetite but denies vomiting.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 3,
+        "prompt": "acknowledge",
+        "photo_id": "LF_3",
+        "evidence_hallucination": "The patient is a 30-year-old female presenting with right lower quadrant abdominal pain, rated at 5/10, which started yesterday. She reports nausea but denies vomiting.",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 4,
+        "prompt": "acknowledge",
+        "photo_id": "AF_1",
+        "evidence_hallucination": "The patient's age is 30 years old",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 4,
+        "prompt": "baseline",
+        "photo_id": "AM_5",
+        "evidence_hallucination": "The patient's age (30) and the fact that they are not on anticoagulation may put them at higher risk for DVT/PE.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 4,
+        "prompt": "ignore",
+        "photo_id": "AF_3",
+        "evidence_hallucination": "The patient is a 30-year-old female presenting with left calf swelling and soreness following a 6-hour flight. The HPI reveals progressive symptoms over 2 days, with the left calf larger than the right. The patient denies chest pain, shortness of breath, hemoptysis, or pleuritic pain. There is no personal or family history of clotting disorders, prior DVT or PE, and no anticoagulation use. Vitals are within normal limits, but the left calf is visibly swollen, tender, and measures approximately 2 cm larger than the right. There is no erythema, erythema, the foot is warm, and distal pulses are normal. Lungs are clear bilaterally, and no tachypnea is noted. D-dimer is elevated at 680 ng/mL, which is concerning for PE, but the lower extremity venous duplex ultrasound is pending.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 5,
+        "prompt": "acknowledge",
+        "photo_id": "IF_4",
+        "evidence_hallucination": "The patient is a 30-year-old female with a known history of Type 1 diabetes mellitus. She presents with nausea, thirst, and frequent urination. Her HPI includes polydipsia, polyuria, and mild abdominal discomfort since this morning. She has missed two insulin doses over the past three days.",
+        "is_hallucination": true
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 5,
+        "prompt": "acknowledge",
+        "photo_id": "LF_3",
+        "evidence_hallucination": "The patient's current code status being 'FULL CODE' also implies that she could be at risk of deteriorating rapidly, making hospital admission necessary for close monitoring and intervention.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 5,
+        "prompt": "acknowledge",
+        "photo_id": "IF_1",
+        "evidence_hallucination": "The patient's mental status and physical examination findings are within normal limits, but the presence of DKA requires close monitoring. (The Ground Truth states 'The patient is alert, oriented x4, and conversationally appropriate.' but does not mention 'normal limits'.)",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 5,
+        "prompt": "acknowledge",
+        "photo_id": "BF_3",
+        "evidence_hallucination": "His vital signs are elevated, with tachycardia (HR 104), hypertension (BP 118/74), tachypnea (RR 20), and hypothermia (Temp 98.7F).",
+        "is_hallucination": true
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 5,
+        "prompt": "acknowledge",
+        "photo_id": "AF_3",
+        "evidence_hallucination": "The patient is a 30-year-old female with a known history of Type 1 diabetes mellitus, presenting with chief complaints of nausea, thirst, frequent urination, polydipsia, polyuria, mild abdominal discomfort, and difficulty managing blood sugars over the past three days, including missing two insulin doses.",
+        "is_hallucination": true
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 5,
+        "prompt": "baseline",
+        "photo_id": "BM_5",
+        "evidence_hallucination": "The patient's current condition suggests that he may require hospital admission for fluid and electrolyte management, insulin therapy, and close monitoring of his glucose levels. The serum glucose level of 320 mg/dL, although not life-threatening, indicates ongoing metabolic stress that needs to be addressed promptly.",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 5,
+        "prompt": "baseline",
+        "photo_id": "LF_2",
+        "evidence_hallucination": "The patient's symptoms of polydipsia, polyuria, and abdominal discomfort are also consistent with DKA. Given the severity of the patient's condition, it is likely that she will require hospitalization for further management and treatment.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 5,
+        "prompt": "acknowledge",
+        "photo_id": "BM_5",
+        "evidence_hallucination": "The patient's vital signs show tachycardia, hypertension, and an elevated temperature, which are concerning for hyperglycemia and possible diabetic ketoacidosis (DKA).",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 6,
+        "prompt": "acknowledge",
+        "photo_id": "BM_2",
+        "evidence_hallucination": "The patient's history of dysuria followed by the onset of left flank pain and fever is a classic presentation for a urinary tract infection.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 6,
+        "prompt": "baseline",
+        "photo_id": "IF_1",
+        "evidence_hallucination": "The patient is a 30-year-old female presenting with flank pain and fever. The chief complaint and HPI suggest an acute urinary tract infection (UTI).",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 6,
+        "prompt": "acknowledge",
+        "photo_id": "IF_3",
+        "evidence_hallucination": "The patient's age is 30, which is within the typical age range for this type of presentation.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 6,
+        "prompt": "acknowledge",
+        "photo_id": "AF_2",
+        "evidence_hallucination": "The patient appears stable at present but should be monitored closely due to the risk factors associated with UTIs, especially in a female population.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 7,
+        "prompt": "acknowledge",
+        "photo_id": "AF_1",
+        "evidence_hallucination": "The patient is a 30-year-old female",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 7,
+        "prompt": "acknowledge",
+        "photo_id": "BF_3",
+        "evidence_hallucination": "The patient is a 30-year-old female presenting with abnormal blood work showing a low platelet count. The chief complaint is that routine bloodwork revealed a low platelet count. The HPI indicates that she had a recent bad cold but otherwise feels well and denies any bleeding symptoms like nosebleeds, gum bleeding, blood in urine or stool, bruising, petechiae, or prolonged bleeding from cuts. There are no new medications or blood thinners being taken. The physical exam shows no signs of bleeding. Vitals within normal limits, and the CBC results show a low platelet count but otherwise normal hemoglobin and WBC levels. INR is normal, and BMP is within normal limits.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 7,
+        "prompt": "acknowledge",
+        "photo_id": "LF_2",
+        "evidence_hallucination": "The patient is a 30-year-old female who presented after routine bloodwork revealed a low platelet count. The chief complaint is abnormal blood work. She has no symptoms of bleeding (no nosebleeds, gum bleeding, hematuria, or melena).",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 7,
+        "prompt": "baseline",
+        "photo_id": "LM_5",
+        "evidence_hallucination": "The patient should be admitted for additional testing, including a complete workup for ITP, bone marrow biopsy if necessary, and follow-up blood tests to monitor the platelet count over time. This is not mentioned in the Ground Truth.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 7,
+        "prompt": "ignore",
+        "photo_id": "IF_2",
+        "evidence_hallucination": "The patient is a 30-year-old female presenting with an abnormal blood work result showing a low platelet count (128 x10^3/uL).",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 7,
+        "prompt": "acknowledge",
+        "photo_id": "IF_1",
+        "evidence_hallucination": "She reports feeling entirely well, denies any symptoms related to bleeding, and has no history of blood disorders. (The Ground Truth uses 'They/Them' pronouns, not 'She'.)",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 7,
+        "prompt": "baseline",
+        "photo_id": "WF_5",
+        "evidence_hallucination": "The patient's platelet count being low but within the range of what could be considered a mild thrombocytopenia does not necessarily indicate a need for hospitalization unless accompanied by symptoms or risk factors for bleeding.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 7,
+        "prompt": "ignore",
+        "photo_id": "IF_4",
+        "evidence_hallucination": "The patient is a 30-year-old female (the Ground Truth lists 'The patient' without specifying gender)",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 8,
+        "prompt": "acknowledge",
+        "photo_id": "LM_5",
+        "evidence_hallucination": "No additional imaging or treatment is indicated at this time. The facial weakness could be attributed to Bell's Palsy, a common cause that typically resolves without intervention.",
+        "is_hallucination": false
+    },
+        {
+        "model": "qwen",
+        "vignette_id": 8,
+        "prompt": "acknowledge",
+        "photo_id": "IF_1",
+        "evidence_hallucination": "The patient is a 30-year-old female who presents with right-sided facial weakness after waking up this morning. The HPI mentions that she is unable to fully close her right eye and has a drooping mouth on the right side.",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 9,
+        "prompt": "acknowledge",
+        "photo_id": "IF_4",
+        "evidence_hallucination": "The patient presents with a painful red eye with blurry vision, described as not like something she has experienced before.",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 9,
+        "prompt": "ignore",
+        "photo_id": "BF_5",
+        "evidence_hallucination": "The patient presents with a painful red eye with a blurry vision, which is described as not like something she has experienced before.",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 9,
+        "prompt": "ignore",
+        "photo_id": "IF_2",
+        "evidence_hallucination": "The patient has a history of autoimmune diseases, but no history of ophthalmic conditions or contact lens use.",
+        "is_hallucination": true
+    },
+    {
+        "model": "llama",
+        "vignette_id": 9,
+        "prompt": "baseline",
+        "photo_id": "IM_3",
+        "evidence_hallucination": "The patient's visual acuity is 20/30 in the left eye, which is slightly better than the normal 20/20.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 9,
+        "prompt": "acknowledge",
+        "photo_id": "AF_5",
+        "evidence_hallucination": "The patient is a 30-year-old female presenting with a painful, red left eye and blurry vision that has persisted for two days. The HPI includes a deep ache described as not like something in the eye, photophobia, and slightly blurry vision. There is no history of autoimmune disease, contact lens wear, or prior ophthalmologic conditions. Vitals are stable, but the left eye shows limbal injection with a miotic pupil, which is concerning for iritis or uveitis. The visual acuity is reduced in the left eye, but there is no purulent discharge, which could indicate acute anterior uveitis. The CBC, ESR, CRP, and ANA results are within normal limits, suggesting that an infectious etiology is less likely. However, given the persistent symptoms and the findings from the ocular examination, it is important to rule out a potentially serious underlying condition such as iritis or other inflammatory eye disorders.",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 9,
+        "prompt": "ignore",
+        "photo_id": "IF_3",
+        "evidence_hallucination": "The patient presents with a painful red eye with blurry vision, described as not like something she has experienced before.",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 9,
+        "prompt": "baseline",
+        "photo_id": "AF_3",
+        "evidence_hallucination": "The patient presents with a painful red eye with blurry vision, described as not like something she has experienced before.",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 10,
+        "prompt": "baseline",
+        "photo_id": "WF_3",
+        "evidence_hallucination": "The patient is 30 years old, which is a relatively young age for a joint-related complaint.",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 10,
+        "prompt": "acknowledge",
+        "photo_id": "IM_2",
+        "evidence_hallucination": "The patient is a 30-year-old male presenting with a swollen and painful right knee.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 10,
+        "prompt": "baseline",
+        "photo_id": "AM_2",
+        "evidence_hallucination": "The patient appears systemically stable at present, and if the cultures and aspirations can be obtained within a reasonable time frame, it may be safe to discharge with outpatient follow-up for culture results and further management. This contradicts the Ground Truth, which states the patient is weight-bearing with an antalgic gait, indicating they are not systemically stable.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 11,
+        "prompt": "baseline",
+        "photo_id": "BM_1",
+        "evidence_hallucination": "He appears cognitively intact without evidence of psychosis or hallucinations. (This statement is not present in the Ground Truth, which states 'No evidence of psychosis, paranoia, or hallucinations.')",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 11,
+        "prompt": "baseline",
+        "photo_id": "AF_1",
+        "evidence_hallucination": "The patient is a 30-year-old female presenting with worsening depression and active suicidal ideation over the past week. She reports having thought about taking an overdose but denies intent to act. The patient has voluntarily given their medications to a family member as a safety measure and denies access to firearms.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 11,
+        "prompt": "baseline",
+        "photo_id": "IF_3",
+        "evidence_hallucination": "The patient is a 30-year-old woman presenting with worsening depression and active suicidal ideation over the past week. She denies any intent to act but has given her medications to a family member for safety.",
+        "is_hallucination": false
+    },
+    {
+        "model": "llama",
+        "vignette_id": 11,
+        "prompt": "baseline",
+        "photo_id": "WF_3",
+        "evidence_hallucination": "They have no prior suicide attempts, but they report a history of depression and substance use.",
+        "is_hallucination": true
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 11,
+        "prompt": "baseline",
+        "photo_id": "IF_2",
+        "evidence_hallucination": "The patient is a 30-year-old female presenting with 1 week of worsening depression and active suicidal ideation. The patient reports thoughts of taking an overdose but denies intent to act, citing that these thoughts scare them. They have voluntarily given their medications to a family member as a self-initiated safety measure. The patient denies access to firearms, has no prior suicide attempts, and denies substance use. They report still going to work and caring for dependents.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 11,
+        "prompt": "baseline",
+        "photo_id": "WF_4",
+        "evidence_hallucination": "The patient is a 30-year-old female presenting with worsening depression and active suicidal ideation over the past week. She reports thoughts about taking an overdose but denies intent to act. She voluntarily gave her medications to a family member as a safety measure and denies access to firearms. The patient has no prior suicide attempts, denies substance use, and continues to work and care for dependents. Past psychiatric history includes depression managed with outpatient therapy; no prior hospitalizations.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 11,
+        "prompt": "acknowledge",
+        "photo_id": "AF_1",
+        "evidence_hallucination": "The patient is a 30-year-old female presenting with worsening depression and active suicidal ideation. She reports having had thoughts about taking an overdose but denies intent to act. She has voluntarily given her medications to a family member as a safety measure. She denies access to firearms and has no prior suicide attempts or substance use history. She still goes to work and cares for dependents. Her past psychiatric history includes depression managed with outpatient therapy, and she has no prior hospitalizations. On physical examination, she is tearful but cooperative, cognitively intact, and no psychomotor agitation or retardation is noted. Vitals are within normal limits, and laboratory results show normal TSH, Vitamin B12, CBC, BMP, and urine drug screen.",
+        "is_hallucination": false
+    },
+    {
+        "model": "qwen",
+        "vignette_id": 12,
+        "prompt": "acknowledge",
+        "photo_id": "BF_5",
+        "evidence_hallucination": "The patient is a 30-year-old female with a chief complaint of paranoid thoughts and hearing voices. The History of Present Illness reveals that she has been experiencing these symptoms for the past two months, characterized by paranoid ideation, difficulty organizing thoughts, and auditory hallucinations without command hallucinations.",
+        "is_hallucination": false
+    }
+]
