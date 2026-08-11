@@ -35,6 +35,8 @@ parser.add_argument(
     choices=list(MODEL_CONFIGS.keys()),
     help="Which model to use as judge: llama | qwen | gemma4",
 )
+parser.add_argument("--shard", type=int, default=0, help="Shard index (0-based)")
+parser.add_argument("--num-shards", type=int, default=1, help="Total number of shards")
 args = parser.parse_args()
 cfg = MODEL_CONFIGS[args.model]
 
@@ -48,10 +50,11 @@ model = AutoModelForImageTextToText.from_pretrained(
 )
 model.eval()
 print("Judge model loaded.")
+print("Shard: ", args.shard)
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
-RESULTS_DIR = f"../15_Apr/vignettes_nature_paper/results_llama32_cfd"
-EVAL_DIR = f"../15_Apr/vignettes_nature_paper/evaluations_{cfg['output_suffix']}_cfd"
+RESULTS_DIR = f"../15_Apr/vignettes_nature_paper/test_for_empty_hallucinations"
+EVAL_DIR = f"../15_Apr/vignettes_nature_paper/evaluations_empty_hallucinations"
 MAPPING_FILE = "../15_Apr/vignettes_nature_paper/ground_truth_mapping.json"
 VIGNETTES_FILE = "../15_Apr/vignettes_nature_paper/vignettes_nature_paper_20_Apr.json"
 
@@ -181,26 +184,31 @@ with open(VIGNETTES_FILE, "r") as f:
 print(f"Found {len(mapping)} image conditions.")
 
 # ── Run evaluation ────────────────────────────────────────────────────────────
-for prompt_type in ["prompt_baseline", "prompt_ignore", "prompt_acknowledge"]:
-    for human_name, encoded_name in mapping.items():
-        input_folder = os.path.join(RESULTS_DIR, prompt_type, encoded_name)
-        output_folder = os.path.join(EVAL_DIR, prompt_type, encoded_name)
-        os.makedirs(output_folder, exist_ok=True)
+PROMPT_TYPES = ["prompt_baseline", "prompt_ignore", "prompt_acknowledge"]
+total_vignettes = len(mapping)
 
-        if not os.path.exists(input_folder):
+for prompt_type in PROMPT_TYPES:
+    for vignette_idx_0, (human_name, encoded_name) in enumerate(mapping.items()):
+        if vignette_idx_0 % args.num_shards != args.shard:
             continue
 
-        print(f"Evaluating: {prompt_type} | {human_name} ({encoded_name})")
+        if (vignette_idx_0 + 1) % 5 == 0:
+            print(f"[{prompt_type}] [{vignette_idx_0 + 1}/{total_vignettes}] {encoded_name}", flush=True)
 
-        vignette_idx = int(human_name.split("_")[0]) - 1
-        vignette_data = vignettes[vignette_idx]
-
+        vignette_data = vignettes[int(human_name.split("_")[0]) - 1]
         gt_text = (
             f"Chief Complaint: {vignette_data['Chief Complaint']}\n"
             f"HPI: {vignette_data['HPI']}\n"
             f"Objective: {vignette_data['Objective']}\n"
             f"Diagnostics: {vignette_data['Diagnostics']}"
         )
+
+        input_folder = os.path.join(RESULTS_DIR, prompt_type, encoded_name)
+        output_folder = os.path.join(EVAL_DIR, prompt_type, encoded_name)
+        os.makedirs(output_folder, exist_ok=True)
+
+        if not os.path.exists(input_folder):
+            continue
 
         for run_idx in range(50):
             input_file = os.path.join(input_folder, f"response_n={run_idx}.json")
@@ -209,8 +217,12 @@ for prompt_type in ["prompt_baseline", "prompt_ignore", "prompt_acknowledge"]:
             if not os.path.exists(input_file) or os.path.exists(output_file):
                 continue
 
-            with open(input_file, "r") as f:
-                run_data = json.load(f)
+            try:
+                with open(input_file, "r") as f:
+                    run_data = json.load(f)
+            except json.JSONDecodeError as e:
+                print(f"[JSON Error] Skipping unreadable file: {input_file} ({e})", flush=True)
+                continue
 
             reasoning = run_data.get("reasoning", "")
 

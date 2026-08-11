@@ -24,11 +24,17 @@ MODEL_CONFIGS = {
         "input_style": "qwen",    # processor(text=[..], images=[..])
         "output_suffix": "qwen25",
     },
-    "gemma4": {
-        "hf_id": "google/gemma-4-26B-A4B-it",
+    "gemma3": {
+        "hf_id": "google/gemma-3-4b-it",
         "dtype": torch.bfloat16,
         "input_style": "gemma",   # processor.apply_chat_template(..., return_dict=True)
-        "output_suffix": "gemma4",
+        "output_suffix": "gemma3",
+    },
+    "med_gemma": {
+        "hf_id": "google/medgemma-1.5-4b-it",
+        "dtype": torch.bfloat16,
+        "input_style": "gemma",   # processor.apply_chat_template(..., return_dict=True)
+        "output_suffix": "med_gemma",
     },
 }
 
@@ -37,15 +43,17 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "model",
     choices=list(MODEL_CONFIGS.keys()),
-    help="Which model to run: llama | qwen | gemma4",
+    help="Which model to run: llama | qwen | gemma3 | med_gemma",
 )
+parser.add_argument("--shard", type=int, default=0, help="Shard index (0-based)")
+parser.add_argument("--num-shards", type=int, default=1, help="Total number of shards")
 args = parser.parse_args()
 cfg = MODEL_CONFIGS[args.model]
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
-JPG_DIR = "../15_Apr/vignettes_nature_paper/jpg_new_indian"
-OUTPUT_DIR = f"../15_Apr/vignettes_nature_paper/results_{cfg['output_suffix']}_new_indian"
-MAPPING_FILE = "../15_Apr/vignettes_nature_paper/ground_truth_mapping_new_indian.json"
+JPG_DIR = "../15_Apr/vignettes_nature_paper/jpg_cfd"
+OUTPUT_DIR = f"../15_Apr/vignettes_nature_paper/results_{cfg['output_suffix']}"
+MAPPING_FILE = "../15_Apr/vignettes_nature_paper/ground_truth_mapping.json"
 
 N_COMPLETIONS = 20
 
@@ -262,11 +270,13 @@ with open(MAPPING_FILE, "r") as f:
 
 futures = []
 with ThreadPoolExecutor(max_workers=1) as executor:
-    for human_name, encoded_name in mapping.items():
-        image_path = os.path.join(JPG_DIR, f"{encoded_name}.jpg")
-        if not os.path.exists(image_path):
-            continue
-        for prompt_name, prompt_text in PROMPTS.items():
+    for prompt_name, prompt_text in PROMPTS.items():
+        for i, (human_name, encoded_name) in enumerate(mapping.items()):
+            if i % args.num_shards != args.shard:
+                continue
+            image_path = os.path.join(JPG_DIR, f"{encoded_name}.jpg")
+            if not os.path.exists(image_path):
+                continue
             for run_idx in range(N_COMPLETIONS):
                 futures.append(
                     executor.submit(

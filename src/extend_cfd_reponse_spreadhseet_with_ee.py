@@ -7,16 +7,22 @@ import pandas as pd
 BASE_DIR = "../15_Apr/vignettes_nature_paper"
 MAPPING_FILE = os.path.join(BASE_DIR, "ground_truth_mapping.json")
 
-# eval dir suffix = the JUDGE model, not the subject
+# eval dir = the judge model's evaluation of the subject's responses
 # evaluations_qwen25_cfd = qwen judged llama's responses
 # evaluations_llama32_cfd = llama judged qwen's responses
-MODEL_SUFFIX = {"llama": "qwen25", "qwen": "llama32"}
+# evaluations_for_med_from_qwen25_cfd = qwen judged med_gemma's responses
+EVAL_DIR = {
+    "llama": "evaluations_qwen25_cfd",
+    "qwen": "evaluations_llama32_cfd",
+    # "med_gemma": "evaluations_for_med_from_qwen25_cfd",
+    "med_gemma": 'evaluations_for_gemma_from_qwen25'
+}
 
 with open(MAPPING_FILE) as f:
     mapping = json.load(f)  # human_name -> encoded_name
 
-print("Loading Master_RunLevel_Data.csv...")
-df = pd.read_csv("Master_RunLevel_Data.csv")
+print("Loading Master_RunLevel_Data_gemma.csv...")
+df = pd.read_csv("Master_RunLevel_Data_gemma.csv")
 print(f"  {len(df)} rows loaded.")
 
 ee_cols = [
@@ -59,10 +65,10 @@ for _, row in df.iterrows():
     eval_result = {col: None for col in ee_cols}
 
     if encoded_name and run_idx is not None:
-        suffix = MODEL_SUFFIX.get(model)
+        eval_dir = EVAL_DIR.get(model)
         eval_path = os.path.join(
             BASE_DIR,
-            f"evaluations_{suffix}_cfd",
+            eval_dir,
             f"prompt_{prompt}",
             encoded_name,
             f"eval_n={run_idx}.json",
@@ -88,7 +94,7 @@ ee_df = pd.DataFrame(ee_records)
 df.insert(0, "run_id", range(1, len(df) + 1))
 df = pd.concat([df, ee_df], axis=1)
 
-out_path = "Master_RunLevel_Data_EE.csv"
+out_path = "Master_RunLevel_Data_gemma_EE.csv"
 df.to_csv(out_path, index=False)
 print(f"\nSaved extended run-level dataset: {out_path}")
 print(f"Shape: {df.shape[0]} rows × {df.shape[1]} cols")
@@ -98,9 +104,9 @@ key_cols = ["run_id", "model", "prompt", "vignette_id", "photo_id", "admit_decis
             "clinical_fidelity_passed", "evidence_hallucination"]
 print(df[key_cols].head().to_string())
 
-# ── Extend Master_Aggregated_Data.csv ─────────────────────────────────────────
-print("\nLoading Master_Aggregated_Data.csv...")
-df_agg = pd.read_csv("Master_Aggregated_Data.csv")
+# ── Extend Master_Aggregated_Data_gemma.csv ────────────────────────────────
+print("\nLoading Master_Aggregated_Data_gemma.csv...")
+df_agg = pd.read_csv("Master_Aggregated_Data_gemma.csv")
 print(f"  {len(df_agg)} rows loaded.")
 
 # Coerce bool EE cols to numeric so mean() works even with None values
@@ -119,7 +125,7 @@ ee_summary = ee_summary[ordered_cols]
 
 df_agg = df_agg.merge(ee_summary, on=cell_keys, how="left")
 
-agg_out_path = "Master_Aggregated_Data_EE.csv"
+agg_out_path = "Master_Aggregated_Data_gemma_EE.csv"
 df_agg.to_csv(agg_out_path, index=False)
 print(f"\nSaved extended aggregated dataset: {agg_out_path}")
 print(f"Shape: {df_agg.shape[0]} rows × {df_agg.shape[1]} cols")

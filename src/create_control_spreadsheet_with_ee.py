@@ -12,8 +12,13 @@ CFD_MODEL_DIRS = {
     "qwen":  os.path.join(BASE_DIR, "results_qwen25_cfd"),
 }
 CONTROL_MODEL_DIRS = {
-    "llama": os.path.join(BASE_DIR, "results_llama32_control"),
-    "qwen":  os.path.join(BASE_DIR, "results_qwen25_control"),
+    "llama":     os.path.join(BASE_DIR, "results_llama32_control"),
+    "qwen":      os.path.join(BASE_DIR, "results_qwen25_control"),
+    # med_gemma's control dir holds BOTH no_photo and grey_rect runs already,
+    # so it's used for both conditions below (no separate CFD dir needed).
+    "med_gemma": os.path.join(BASE_DIR, "results_med_gemma_control"),
+    "gemma":  os.path.join(BASE_DIR, "results_gemma3_control"),
+    
 }
 CFD_MAPPING_FILE     = os.path.join(BASE_DIR, "ground_truth_mapping.json")
 CONTROL_MAPPING_FILE = os.path.join(BASE_DIR, "ground_truth_mapping_control.json")
@@ -21,15 +26,34 @@ CONTROL_MAPPING_FILE = os.path.join(BASE_DIR, "ground_truth_mapping_control.json
 PROMPT_TYPES = ["prompt_baseline", "prompt_ignore", "prompt_acknowledge"]
 
 BORDERLINE_IDS = {
-    "qwen":  [3, 8, 9, 11, 12],
-    "llama": [3, 8, 9, 11, 12, 2, 6, 7, 1],
+    "qwen":      [3, 8, 9, 11, 12],
+    "llama":     [3, 8, 9, 11, 12, 2, 6, 7, 1],
+    "med_gemma": [1, 2, 3, 6, 7, 8, 9, 11, 12],
+    "gemma": [1, 2, 3, 6, 7, 8, 9, 11, 12]
 }
 
-# eval dir = evaluations_{JUDGE}_{DOMAIN}
-# JUDGE: "qwen25" if subject=llama, "llama32" if subject=qwen
-# DOMAIN: "cfd" if condition=no_photo, "control" if condition=grey_rect
-JUDGE_SUFFIX = {"llama": "qwen25", "qwen": "llama32"}
-DOMAIN_KEY   = {"no_photo": "cfd", "grey_rect": "control"}
+# eval dir template = evaluations_{...}_{DOMAIN}
+EVAL_DIR_TEMPLATE = {
+    "llama":     "evaluations_qwen25_{domain}",
+    "qwen":      "evaluations_llama32_{domain}",
+    "med_gemma": "evaluations_for_med_from_qwen25_{domain}",
+    "gemma": "evaluations_for_gemma_from_qwen25_control"
+}
+# Domain each (model, condition) pair's judge evaluations live under.
+# llama/qwen: judged separately per domain (cfd for no_photo, control for grey_rect).
+# med_gemma: both conditions were judged together in a single "control" pass
+# (evaluations_for_med_from_qwen25_cfd exists but is empty for no_photo).
+DOMAIN_FOR = {
+    ("llama", "no_photo"):      "cfd",
+    ("llama", "grey_rect"):     "control",
+    ("qwen", "no_photo"):       "cfd",
+    ("qwen", "grey_rect"):      "control",
+    ("med_gemma", "no_photo"):  "control",
+    ("med_gemma", "grey_rect"): "control",
+    ("gemma", "no_photo"):  "control",
+    ("gemma", "grey_rect"): "control",
+
+}
 
 BOOL_EE_COLS = [
     "mentions_race",
@@ -116,9 +140,13 @@ _, inv_map_control = load_maps(CONTROL_MAPPING_FILE)
 
 # ── 2. Collect run-level data ─────────────────────────────────────────
 master_rows = []
-for model_name in ["llama", "qwen"]:
+for model_name in ["gemma"]:
     print(f"Parsing no_photo for {model_name}...")
-    rows = parse_runs(CFD_MODEL_DIRS, inv_map_cfd, "no_photo", model_name)
+    if model_name in CFD_MODEL_DIRS:
+        rows = parse_runs(CFD_MODEL_DIRS, inv_map_cfd, "no_photo", model_name)
+    else:
+        # med_gemma's no_photo runs live alongside grey_rect in its control dir
+        rows = parse_runs(CONTROL_MODEL_DIRS, inv_map_control, "no_photo", model_name)
     print(f"  → {len(rows)} rows")
     master_rows.extend(rows)
 
@@ -148,9 +176,10 @@ for _, row in df_run_level.iterrows():
     eval_result = {col: None for col in ALL_EE_COLS}
 
     if run_idx is not None:
+        eval_dir = EVAL_DIR_TEMPLATE[model].format(domain=DOMAIN_FOR[(model, condition)])
         eval_path = os.path.join(
             BASE_DIR,
-            f"evaluations_{JUDGE_SUFFIX[model]}_{DOMAIN_KEY[condition]}",
+            eval_dir,
             f"prompt_{prompt}",
             encoded_name,
             f"eval_n={run_idx}.json",
@@ -202,8 +231,8 @@ df_aggregated = df_aggregated.merge(ee_summary, on=group_cols, how="left")
 # Drop encoded_name from run-level output (internal lookup key only)
 df_run_level.drop(columns=["encoded_name"], inplace=True)
 
-df_run_level.to_csv("Control_RunLevel_Data_EE.csv", index=False)
-df_aggregated.to_csv("Control_Aggregated_Data_EE.csv", index=False)
+df_run_level.to_csv("Control_RunLevel_Data_EE_gemma.csv", index=False)
+df_aggregated.to_csv("Control_Aggregated_Data_EE_gemma.csv", index=False)
 
 print(f"\nDone!")
 print(f"Run-level:  {len(df_run_level)} rows × {df_run_level.shape[1]} cols")
