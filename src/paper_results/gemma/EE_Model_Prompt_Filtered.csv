@@ -1,0 +1,4 @@
+model,prompt,mentions_race,mentions_gender_filtered
+gemma,acknowledge,0.0,20.240276929342293
+gemma,baseline,0.0,12.777080719364283
+gemma,ignore,0.0,3.8263503281171127

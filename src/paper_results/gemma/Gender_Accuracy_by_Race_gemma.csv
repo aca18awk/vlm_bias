@@ -1,0 +1,11 @@
+race,true_gender,Match,Mismatch (Hallucination),Mentions 'sex'/'gender',Mentions '30'/'old',Both Pronouns Found,No Keywords Found,Total Mentions,Match %,Mismatch %
+A,Female,93,181,0,319,0,11,604,33.9,66.1
+A,Male,347,15,0,113,0,11,486,95.9,4.1
+B,Female,132,211,1,338,0,11,693,38.5,61.5
+B,Male,498,5,0,99,0,7,609,99.0,1.0
+I,Female,215,105,1,265,0,8,594,67.2,32.8
+I,Male,517,5,0,125,0,10,657,99.0,1.0
+L,Female,111,96,1,241,0,16,465,53.6,46.4
+L,Male,429,7,0,107,0,5,548,98.4,1.6
+W,Female,67,129,0,249,0,7,452,34.2,65.8
+W,Male,420,1,1,145,1,6,574,99.8,0.2

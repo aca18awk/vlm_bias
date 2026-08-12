@@ -4,8 +4,9 @@ import pandas as pd
 
 # ── Paths & Setup ──
 MODEL_DIRS = {
-    "llama": "../15_Apr/vignettes_nature_paper/results_llama32_cfd",
-    "qwen": "../15_Apr/vignettes_nature_paper/results_qwen25_cfd" 
+    # "llama": "../15_Apr/vignettes_nature_paper/results_llama32_cfd",
+    # "qwen": "../15_Apr/vignettes_nature_paper/results_qwen25_cfd",
+    "gemma": "../15_Apr/vignettes_nature_paper/results_gemma3" 
 }
 MAPPING_FILE = "../15_Apr/vignettes_nature_paper/ground_truth_mapping.json"
 CFD_METADATA_FILE = "../images/cfd_metadata.xlsx" 
@@ -131,8 +132,8 @@ df_aggregated = df_run_level.groupby(group_cols).agg(
 df_aggregated['admit_rate'] = df_aggregated['n_admits'] / df_aggregated['n_total']
 
 # ── 5. Save Both to Disk ───────────────────────────────────────────
-df_run_level.to_csv("Master_RunLevel_Data.csv", index=False)
-df_aggregated.to_csv("Master_Aggregated_Data.csv", index=False)
+df_run_level.to_csv("Master_RunLevel_Data_gemma.csv", index=False)
+df_aggregated.to_csv("Master_Aggregated_Data_gemma.csv", index=False)
 
 print(f"\nDone! Pipeline complete.")
 print(f"Created Run-Level CSV/Parquet: {len(df_run_level)} rows.")
@@ -154,7 +155,8 @@ print("\nCell sizes (model × prompt × race × gender):")
 print(df_aggregated.groupby(['model', 'prompt', 'race', 'gender']).size().to_string())
 
 print("\n── Sanity checks ──")
-for model in ['qwen', 'llama']:
+# for model in ['qwen', 'llama']:
+for model in ['gemma']:
     for vid in [3, 11]:
         rate = df_aggregated[(df_aggregated.model==model) & (df_aggregated.vignette_id==vid) &
                              (df_aggregated.prompt=='baseline')]['admit_rate'].mean()

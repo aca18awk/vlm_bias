@@ -15,7 +15,7 @@ EVAL_DIR = {
     "llama": "evaluations_qwen25_cfd",
     "qwen": "evaluations_llama32_cfd",
     # "med_gemma": "evaluations_for_med_from_qwen25_cfd",
-    "med_gemma": 'evaluations_for_gemma_from_qwen25'
+    "gemma": 'evaluations_for_gemma_from_qwen25'
 }
 
 with open(MAPPING_FILE) as f:
