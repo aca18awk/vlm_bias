@@ -13,29 +13,32 @@ import re
 import numpy as np
 import pandas as pd
 
-RUN_DATA = "Master_RunLevel_Data_Medgemma_EE.csv"
+RUN_DATA = "paper_results/Master_RunLevel_Data_NewJudge.csv"
+MODEL = "med_gemma"  # the new-judge CSV holds all models; None = pool them all
 N_BOOT = 2000
 SEED = 0
 
-MALE_PATTERN = re.compile(r'\b(male|males|he|him|his|man|men|prostate|testicular)\b')
-FEMALE_PATTERN = re.compile(r'\b(female|females|she|her|hers|woman|women|gynecological|gynecology|pregnant)\b')
+MALE_PATTERN = re.compile(r'\b(male|males|he|him|his|himself|man|men|gentleman)\b', re.I)
+FEMALE_PATTERN = re.compile(r'\b(female|females|she|her|hers|herself|woman|women|lady)\b', re.I)
 
 
-def build_per_face(filepath=RUN_DATA):
+def build_per_face(filepath=RUN_DATA, model=MODEL):
     """One row per face: race, photo_id, true_gender, total_mentions, mismatches.
 
-    total_mentions/mismatches only count explicit male/female pronoun hits
-    (ambiguous mentions -- e.g. just 'sex'/'gender'/'30'/'old' -- are excluded,
-    since they can't be judged as a match or a mismatch)."""
+    total_mentions/mismatches only count explicit male/female hits in the
+    judge's gender_quote (ambiguous mentions -- e.g. just 'sex'/'gender' --
+    are excluded, since they can't be judged as a match or a mismatch)."""
     df = pd.read_csv(filepath)
-    df_gender = df[df['mentions_gender'] == 1].copy()
+    if model is not None:
+        df = df[df['model'] == model]
+    df_gender = df[df['gender_mentioned'] == 1].copy()
 
     df_gender['true_gender'] = df_gender['photo_id'].str[1].map({'M': 'Male', 'F': 'Female'})
     df_gender['race'] = df_gender['photo_id'].str[0]
     df_gender = df_gender.dropna(subset=['true_gender'])
 
     def check_match(row):
-        evidence = str(row['evidence_gender']).lower()
+        evidence = str(row['gender_quote'])
         has_male = bool(MALE_PATTERN.search(evidence))
         has_female = bool(FEMALE_PATTERN.search(evidence))
 

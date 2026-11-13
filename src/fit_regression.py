@@ -8,8 +8,8 @@ from rpy2.robjects.packages import importr
 lme4 = importr('lme4')
 
 
-AGGREDATED_DATA = "Master_Aggregated_Data_Medgemma_EE.csv"
-RUN_DATA = "Master_RunLevel_Data_Medgemma_EE.csv"
+AGGREDATED_DATA = "paper_results/med_gemma/Master_Aggregated_Data_Medgemma_EE.csv"
+RUN_DATA = "paper_results/med_gemma/Master_RunLevel_Data_Medgemma_EE.csv"
 
 print("Loading run-level CSV...")
 df = pd.read_csv(RUN_DATA)
@@ -63,7 +63,8 @@ def fit_vignette(df, model_name, prompt_name, vid):
         return None
 
 # Loop over all vignettes, models, and prompts
-ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+# ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+ids = [1, 2, 3, 6, 7, 8, 9, 11, 12]
 models = ["med_gemma"]
 prompts = ["acknowledge", "ignore", "baseline"]
 
@@ -155,40 +156,43 @@ def fit_pooled(df, model_name, prompt_name, exclude_vignettes=None):
 
 results_pooled = []
 variance_components = []
+medgemma_without_extremes = [1, 2, 3, 6, 7, 8, 9, 11, 12]   # excludes V04, V05, V10 (≥95% admit)
 
-qwen_without_extremes = [1,2,3,6,7,8,11,12]
 
 for m in ['med_gemma']:
-    excl = [v for v in range(1, 13) if v not in qwen_without_extremes] if m=='med_gemma' else None
+    excl = [v for v in range(1, 13) if v not in medgemma_without_extremes]
     for p in ['baseline', 'ignore', 'acknowledge']:
-        print(f"Fitting pooled model: {m.upper()} | Prompt: {p} ...")
-        coef, var = fit_pooled(df, m, p, exclude_vignettes=excl)
-        
-        if coef is not None: 
+        # Coefficients: ceiling vignettes excluded (same rule as Qwen)
+        print(f"Fitting pooled model (coefficients, 8 vignettes): {m.upper()} | {p} ...")
+        coef, _ = fit_pooled(df, m, p, exclude_vignettes=excl)
+        if coef is not None:
             results_pooled.append(coef)
-        if var is not None: 
+
+        # ICC: all 12 vignettes
+        print(f"Fitting pooled model (ICC, all 12 vignettes): {m.upper()} | {p} ...")
+        _, var = fit_pooled(df, m, p, exclude_vignettes=None)
+        if var is not None:
             variance_components.append(var)
 
-# Combine and save
 pooled_df = pd.concat(results_pooled, ignore_index=True)
 var_df_all = pd.concat(variance_components, ignore_index=True)
 
 pooled_df.to_csv("all_pooled_results_med_gemma.csv", index=False)
 var_df_all.to_csv("all_variance_components_med_gemma.csv", index=False)
 
-print("\n" + "="*80)
+print("\n" + "=" * 80)
 print("SUCCESS! Pooled models completed and saved.")
-print("="*80)
+print("=" * 80)
 
 
-qwen_borderline_in_range = [3, 8, 9, 11, 12]
-med_gemma_in_range = [1,2,3,6,8,11]
+med_gemma_in_range = [1, 2, 6, 7, 8, 11, 12]
+
 
 results_pooled_borderline = []
 variance_borderline = []
 
 for m in ['med_gemma']:
-    bl = med_gemma_in_range if m=='med_gemma' else qwen_borderline_in_range
+    bl = med_gemma_in_range
     excl = [v for v in range(1, 13) if v not in bl]
     for p in ['baseline', 'ignore', 'acknowledge']:
         print(f"Borderline-only: {m} {p}...")
