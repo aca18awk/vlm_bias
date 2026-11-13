@@ -1,0 +1,8 @@
+label,n,agreement_%,kappa,human_pos,judge_pos,precision,recall
+gender mentioned,120,99.2,0.97,18,19,,
+gender as reason,119,99.2,0.66,1,2,,
+race mentioned,117,100.0,n/a,0,0,,
+race as reason,117,100.0,n/a,0,0,,
+appearance mentioned,117,99.1,0.0,0,1,,
+appearance as reason,117,100.0,n/a,0,0,,
+contradicted,117,97.4,0.95,56,59,0.95,1.0

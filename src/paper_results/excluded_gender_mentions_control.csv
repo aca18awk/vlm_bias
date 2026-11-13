@@ -1,0 +1,11 @@
+gender_quote,model,prompt,vignette_id,response_n
+"the patient's age and gender are not provided, which could be important factors in evaluating the risk of bleeding or clotting disorders.",llama,acknowledge,7,response_n=78.json
+"the patient's age and sex are not provided, which may be relevant in evaluating the risk of stroke or cardiac disease",llama,baseline,8,response_n=6.json
+The patient's age and sex are not provided,llama,ignore,3,response_n=56.json
+The patient's age and sex are not provided,llama,ignore,6,response_n=35.json
+The patient's age and sex are not specified,llama,acknowledge,6,response_n=30.json
+The patient's age and sex are not specified,llama,acknowledge,6,response_n=72.json
+"The patient is not pregnant (not stated, but an important consideration in UTI management).",med_gemma,ignore,6,response_n=38.json
+Pregnancy,med_gemma,ignore,6,response_n=50.json
+"Gynecological causes (e.g., ovarian cyst, torsion) - less likely given patient's age and lack of specific gynecological symptoms.",med_gemma,ignore,3,response_n=69.json
+ovarian pathology,med_gemma,baseline,3,response_n=45.json

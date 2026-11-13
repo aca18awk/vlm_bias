@@ -1,0 +1,4 @@
+grp,var1,var2,vcov,sdcor,model,prompt
+vignette_id,(Intercept),,1.9989589593544759,1.4138454510145286,med_gemma,baseline
+vignette_id,(Intercept),,2.438767589985254,1.5616554005238332,med_gemma,ignore
+vignette_id,(Intercept),,2.296734484434011,1.5154980977995356,med_gemma,acknowledge

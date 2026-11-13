@@ -1,0 +1,10 @@
+model,effect,k_sig,n_cells,k_sig_pos,k_sig_neg,max_abs_sig_effect
+llama,IPE,1,36,0,1,0.2180808080808081
+llama,CE_F,1,36,1,0,0.21542168674698792
+llama,CE_FvG,1,36,1,0,0.15755755755755751
+qwen,IPE,0,24,0,0,
+qwen,CE_F,0,24,0,0,
+qwen,CE_FvG,1,24,1,0,0.12820820820820822
+med_gemma,IPE,0,27,0,0,
+med_gemma,CE_F,0,27,0,0,
+med_gemma,CE_FvG,0,27,0,0,
