@@ -158,10 +158,13 @@ python src/collect_local_responses.py qwen    # Qwen2.5-VL-7B (~14 GB VRAM)
 
 **Available models:**
 
-| Key | HuggingFace ID | VRAM |
-|-----|----------------|------|
-| `llama` | `meta-llama/Llama-3.2-11B-Vision-Instruct` | ~22 GB |
-| `qwen` | `Qwen/Qwen2.5-VL-7B-Instruct` | ~14 GB |
+| Key | HuggingFace ID 
+|-----|----------------
+| `llama` | `meta-llama/Llama-3.2-11B-Vision-Instruct`
+| `qwen` | `Qwen/Qwen2.5-VL-7B-Instruct` 
+| `medgemma` | `google/medgemma-1.5-4b-it`
+| `gemma` | `google/gemma-3-4b-it`
+
 
 **Prompt conditions** (all three run automatically for each model):
 
@@ -201,6 +204,8 @@ python src/create_cfd_reponse_spreadsheet.py        # merges CFD responses with 
 python src/create_control_spreadsheet_with_ee.py    # same for control conditions → Control_RunLevel_Data_EE.csv
 python src/extend_cfd_reponse_spreadsheet_with_ee.py  # merges judge evals → Master_RunLevel_Data_EE.csv
 ```
+
+Note: Master_RunLevel_Data_EE.csv is compressed in the repository. Needs to be decompressed first.
 
 `create_cfd_reponse_spreadhseet.py` joins responses with `cfd_metadata.xlsx` to attach continuous face attributes (perceived threat, trustworthiness, attractiveness, prototypicality, race ambiguity, age, luminance) as z-scored predictors.
 
